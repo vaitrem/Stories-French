@@ -360,6 +360,8 @@ function setupSearch() {
    ============================================================ */
 function openStory(id) {
   stopAudio();
+  // Always open a story at the top of the page, including on mobile/Safari.
+  window.scrollTo(0, 0);
   currentStoryId = id;
   currentStory = stories.find(s => s.id === id);
   currentSentenceIndex = 0; sentenceModeActive = false; showTranslation = false;
