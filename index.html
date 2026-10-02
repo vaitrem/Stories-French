@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+<meta name="theme-color" content="#b34a2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="LinguaFlow">
+<meta name="mobile-web-app-capable" content="yes">
+<title>LinguaFlow · Learn by discovering</title>
+<link rel="stylesheet" href="./css/style.css">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<!-- ============================================================
+     ONBOARDING
+     ============================================================ -->
+<div class="onboarding-overlay" id="onboarding">
+  <div class="onboarding-card">
+    <div class="onboarding-step active" id="step1">
+      <h2>What language do you speak?</h2>
+      <p class="sub">Select your native language</p>
+      <div class="lang-options" id="nativeOptions">
+        <div class="lang-option" data-lang="en"><span class="flag">🇬🇧</span> English</div>
+        <div class="lang-option" data-lang="fr"><span class="flag">🇫🇷</span> French</div>
+        <div class="lang-option" data-lang="nl"><span class="flag">🇳🇱</span> Dutch</div>
+      </div>
+      <div class="onboarding-actions">
+        <button class="btn-primary" id="step1Next" disabled>Next →</button>
+      </div>
+      <div class="error-msg" id="step1Error"></div>
+    </div>
+
+    <div class="onboarding-step" id="step2">
+      <h2>What do you want to learn?</h2>
+      <p class="sub">Select your learning language</p>
+      <div class="lang-options" id="learningOptions">
+        <div class="lang-option" data-lang="en"><span class="flag">🇬🇧</span> English</div>
+        <div class="lang-option" data-lang="fr"><span class="flag">🇫🇷</span> French</div>
+        <div class="lang-option" data-lang="nl"><span class="flag">🇳🇱</span> Dutch</div>
+      </div>
+      <div class="onboarding-actions">
+        <button class="btn-secondary" id="step2Back">←</button>
+        <button class="btn-primary" id="step2Next" disabled>Next →</button>
+      </div>
+      <div class="error-msg" id="step2Error"></div>
+    </div>
+
+    <div class="onboarding-step" id="step3">
+      <h2>Your level?</h2>
+      <p class="sub">Choose your current level</p>
+      <div class="level-options" id="levelOptions">
+        <div class="level-option" data-level="A2">A2</div>
+        <div class="level-option" data-level="B1">B1</div>
+        <div class="level-option" data-level="B2">B2</div>
+        <div class="level-option" data-level="C1">C1</div>
+      </div>
+      <div class="onboarding-actions">
+        <button class="btn-secondary" id="step3Back">←</button>
+        <button class="btn-primary" id="startLearning" disabled>Start</button>
+      </div>
+      <div class="error-msg" id="step3Error"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MAIN APP
+     ============================================================ -->
+<div class="app" id="mainApp">
+  <header class="top-bar">
+    <div class="logo">Lingua<span>Flow</span></div>
+    <div class="header-actions">
+      <button class="lang-pair-btn" id="langPairBtn" title="Change languages">
+        <span id="langPairText">🇬🇧 → 🇫🇷</span>
+      </button>
+      <button class="theme-toggle" id="themeToggle">☀️</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HOME -->
+    <section id="view-home" class="view active">
+      <div class="home-welcome">
+        <h1 id="welcomeTitle">Discover something new</h1>
+        <p id="welcomeSub">Learn a language by exploring the world</p>
+      </div>
+      <div class="home-sections">
+        <div class="home-section" id="continueSection" style="display:none;">
+          <h2>Continue</h2>
+          <div id="continueStory"></div>
+        </div>
+        <div class="home-section">
+          <h2>Recommended</h2>
+          <div class="story-grid" id="recommendedGrid"></div>
+        </div>
+        <div class="home-section">
+          <h2>Explore Categories</h2>
+          <div class="category-chips" id="categoryChips"></div>
+        </div>
+        <div class="home-section">
+          <h2>Your Progress</h2>
+          <div class="progress-mini" id="progressMini"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCOVER -->
+    <section id="view-discover" class="view">
+      <div class="discover-header">
+        <h1>Discover Stories</h1>
+        <div class="search-wrapper">
+          <input type="text" id="searchInput" placeholder="Search stories...">
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-row" id="levelFilters">
+          <span>Level</span>
+          <button class="filter-chip active" data-level="all">All</button>
+          <button class="filter-chip" data-level="A2">A2</button>
+          <button class="filter-chip" data-level="B1">B1</button>
+          <button class="filter-chip" data-level="B2">B2</button>
+          <button class="filter-chip" data-level="C1">C1</button>
+        </div>
+        <div class="filter-row" id="continentFilters">
+          <span>Region</span>
+          <button class="filter-chip active" data-continent="all">All</button>
+          <button class="filter-chip" data-continent="Europe">Europe</button>
+          <button class="filter-chip" data-continent="Asia">Asia</button>
+          <button class="filter-chip" data-continent="North America">N. America</button>
+          <button class="filter-chip" data-continent="South America">S. America</button>
+          <button class="filter-chip" data-continent="Africa">Africa</button>
+          <button class="filter-chip" data-continent="Oceania">Oceania</button>
+        </div>
+        <div class="filter-row" id="categoryFilters">
+          <span>Topic</span>
+          <button class="filter-chip active" data-cat="all">All</button>
+        </div>
+      </div>
+      <div class="story-grid" id="discoverGrid"></div>
+    </section>
+
+    <!-- VOCABULARY -->
+    <section id="view-vocabulary" class="view">
+      <h1>My Vocabulary</h1>
+      <p class="sub" style="margin-top:4px;">Words saved from stories</p>
+      <div id="vocabList" class="vocab-list"></div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section id="view-progress" class="view">
+      <h1>Your Progress</h1>
+      <div class="progress-stats" id="progressStats"></div>
+      <div class="level-readiness" id="levelReadiness"></div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="view-settings" class="view">
+      <h1>Settings</h1>
+      <div class="settings-card">
+        <div class="setting-row">
+          <div class="setting-label">🌐 Native</div>
+          <div class="setting-value">
+            <span id="settingsNative">English</span>
+            <button class="change-btn" onclick="openOnboarding()">Change</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">📚 Learning</div>
+          <div class="setting-value">
+            <span id="settingsLearning">French</span>
+            <button class="change-btn" onclick="openOnboarding()">Change</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">📊 Level</div>
+          <div class="setting-value">
+            <span id="settingsLevel">B1</span>
+            <button class="change-btn" onclick="openOnboarding()">Change</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-label">🔊 Audio speed</div>
+          <div class="setting-value"><span id="settingsSpeed">1.0×</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section id="view-story" class="view">
+      <button class="back-btn" id="backBtn">← Back</button>
+      <div id="storyContent"></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-view="home"><span class="nav-icon">🏠</span><span>Home</span></button>
+    <button class="nav-btn" data-view="discover"><span class="nav-icon">🔍</span><span>Discover</span></button>
+    <button class="nav-btn" data-view="vocabulary"><span class="nav-icon">⭐</span><span>Vocab</span></button>
+    <button class="nav-btn" data-view="progress"><span class="nav-icon">📊</span><span>Progress</span></button>
+    <button class="nav-btn" data-view="settings"><span class="nav-icon">⚙️</span><span>Settings</span></button>
+  </nav>
+</div>
+
+<div class="word-popup" id="wordPopup"></div>
+
+<script src="./data/stories.js"></script>
+<script src="./js/app.js"></script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
