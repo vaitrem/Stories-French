@@ -467,7 +467,7 @@ function renderStoryView() {
     <div class="vocab-section">
       <h2>Important words</h2>
       <table class="vocab-table">
-        <thead><tr><th>${LANGS[learning].name}</th><th>${LANGS[native].name}</th><th></th></tr></thead>
+        <thead><tr><th>${LANGS[learning].name}</th><th>Select</th></tr></thead>
         <tbody>
           ${s.vocabulary.map((v, vi) => {
             const vp = getVocabProgress();
@@ -475,15 +475,13 @@ function renderStoryView() {
             return `
               <tr>
                 <td>${v.word}</td>
-                <td>${v.translations[native] || v.translations.en}</td>
-                <td><button class="save-btn ${saved ? 'saved' : ''}" onclick="saveWord('${v.word.replace(/'/g,"\\'")}', ${vi})">${saved ? '★' : '☆'}</button></td>
+                <td><button class="save-btn ${saved ? 'saved' : ''}" onclick="saveWord('${v.word.replace(/'/g,"\\'")}', ${vi})" aria-label="${saved ? 'Remove from vocabulary' : 'Add to vocabulary'}">${saved ? '★' : '☆'}</button></td>
               </tr>
             `;
           }).join('')}
         </tbody>
       </table>
     </div>
-
     <div class="flashcard-area">
       <h2>Practice vocabulary</h2>
       <div class="flashcard" id="flashcard" onclick="flipFlashcard()">
@@ -1186,6 +1184,7 @@ function renderVocabulary() {
       <div class="vocab-item">
         <h4>${item.word}</h4>
         <div class="vocab-trans">${item.translation}</div>
+        <div class="vocab-definition"><strong>Explanation:</strong> ${item.definition || 'No explanation available.'}</div>
         <div class="vocab-example">« ${item.example} »</div>
         <div class="vocab-source">From: ${item.storyTitle || 'Unknown'}</div>
         <div class="vocab-actions">
